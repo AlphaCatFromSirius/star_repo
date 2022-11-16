@@ -4,35 +4,42 @@ from django.shortcuts import redirect, render
 from .models import *
 
 
-menu = ['About the site', 'Add article', 'Feedback', 'Join']
+menu = [
+    {'title': 'About in site', 'url_name': 'about'},
+    {'title': 'Add article', 'url_name': 'add_page'},
+    {'title': 'Feedback', 'url_name': 'contact'},
+    {'title': 'Join', 'url_name': 'login'}
+]
 
 
 def index(request):
     posts = Women.objects.all()
-    return render(request, 'women/index.html', {'posts': posts, 'menu': menu, 'title': 'Main page'})
+    context = {
+        'posts': posts,
+        'menu': menu,
+        'title': 'Main page'
+    }
+    return render(request, 'women/index.html', context=context)
 
 
 def about(request):
     return render(request, 'women/about.html', {'menu': menu, 'title': 'About site'})
 
 
-def categories(request, cat_id):
-    """
-    Получение параметров переданных в GET /categories/100/?name=Ardiano&last_name=Chelentano,
-    можно работать как со словарем
-    """
-    print(request.GET)
-    return HttpResponse(f'<h1>Category page</h1><p>{cat_id}</p>')
+def addpage(request):
+    return HttpResponse('Add new page')
 
 
-def archive(request, year):
-    """
-    ВЫполняет редирект на главную, если year > 2022,
-    в качестве маршрута указываем имя(алиас), определённый в urls.py приложения
-    """
-    if int(year) > 2022:
-        return redirect('home', permanent=True)
-    return HttpResponse(f'<h1>Archives</h1><p>{year}</p>')
+def login(request):
+    return HttpResponse('Join in')
+
+
+def contact(request):
+    return HttpResponse('About us')
+
+
+def show_post(request, post_id):
+    return HttpResponse(f'Show article to id {post_id}')
 
 
 def page_not_found(request, exception):

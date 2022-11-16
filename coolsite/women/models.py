@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Women(models.Model):
@@ -12,26 +13,5 @@ class Women(models.Model):
     def __str__(self):
         return self.title
 
-
-class VDC(models.Model):
-    name = models.CharField(max_length=50)
-    vdc_uuid = models.UUIDField(unique=True)
-    site = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
-class Storage(models.Model):
-    name = models.CharField(max_length=50)
-    storage_uuid = models.UUIDField()
-    type = models.CharField(max_length=50)
-    volume = models.IntegerField()
-    vdc_uuid = models.ForeignKey(
-        VDC,
-        on_delete=models.PROTECT,
-        related_name='vdc'
-    )
-
-    def __str__(self):
-        return self.name
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'post_id': self.pk})
