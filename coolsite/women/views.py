@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import redirect, render
 
 from .models import *
@@ -13,12 +13,17 @@ menu = [
 
 
 def index(request):
+    cats = Category.objects.all()
     posts = Women.objects.all()
+
     context = {
+        'cats': cats,
+        'cat_selected': 0,
         'posts': posts,
         'menu': menu,
         'title': 'Main page'
     }
+
     return render(request, 'women/index.html', context=context)
 
 
@@ -40,6 +45,24 @@ def contact(request):
 
 def show_post(request, post_id):
     return HttpResponse(f'Show article to id {post_id}')
+
+
+def show_category(request, cat_id):
+    cats = Category.objects.all()
+    posts = Women.objects.filter(cat_id=cat_id)
+
+    if len(posts) == 0:
+        raise Http404()
+
+    context = {
+        'cats': cats,
+        'cat_selected': cat_id,
+        'posts': posts,
+        'menu': menu,
+        'title': 'Category display'
+    }
+
+    return render(request, 'women/index.html', context=context)
 
 
 def page_not_found(request, exception):
