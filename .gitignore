@@ -1,3 +1,1 @@
-./coolsite/coolsite/__pycache__/*
-./coolsite/women/__pycache__/*
-./coolsite/women/migrations/__pycache__/*
+*.pyc
