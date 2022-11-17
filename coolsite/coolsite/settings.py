@@ -120,5 +120,5 @@ STATICFILES_DIRS = []
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Media root path
-MEDIA_ROOT = Path(BASE_DIR, '/photos/')  # определяет место хранения медиа - файлов
+MEDIA_ROOT = '/home/bender/PycharmProjects/pythonProject/star_repo/coolsite/photos/' # определяет место хранения медиа - файлов
 MEDIA_URL = '/media/'  # определяет url для медиа - файлов

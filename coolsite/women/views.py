@@ -4,23 +4,12 @@ from django.shortcuts import redirect, render
 from .models import *
 
 
-menu = [
-    {'title': 'About in site', 'url_name': 'about'},
-    {'title': 'Add article', 'url_name': 'add_page'},
-    {'title': 'Feedback', 'url_name': 'contact'},
-    {'title': 'Join', 'url_name': 'login'}
-]
-
-
 def index(request):
-    cats = Category.objects.all()
     posts = Women.objects.all()
 
     context = {
-        'cats': cats,
         'cat_selected': 0,
         'posts': posts,
-        'menu': menu,
         'title': 'Main page'
     }
 
@@ -28,7 +17,7 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'women/about.html', {'menu': menu, 'title': 'About site'})
+    return render(request, 'women/about.html', {'title': 'About site'})
 
 
 def addpage(request):
@@ -48,17 +37,14 @@ def show_post(request, post_id):
 
 
 def show_category(request, cat_id):
-    cats = Category.objects.all()
     posts = Women.objects.filter(cat_id=cat_id)
 
     if len(posts) == 0:
         raise Http404()
 
     context = {
-        'cats': cats,
         'cat_selected': cat_id,
         'posts': posts,
-        'menu': menu,
         'title': 'Category display'
     }
 
