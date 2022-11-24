@@ -21,7 +21,7 @@ from coolsite import settings
 from women.views import index, page_not_found
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include('women.urls')),
 ]
 # настройка для доступа к медиа - файлам в режиме отладки (DEBUG = True в settings.py)

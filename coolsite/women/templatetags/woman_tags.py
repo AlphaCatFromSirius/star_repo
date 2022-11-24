@@ -18,7 +18,7 @@ def show_menu():
         {'title': 'About in site', 'url_name': 'about'},
         {'title': 'Add article', 'url_name': 'add_page'},
         {'title': 'Feedback', 'url_name': 'contact'},
-        {'title': 'Join', 'url_name': 'login'}
+        {'title': 'Join', 'url_name': 'login'},
     ]
     return {'menu': menu}
 
